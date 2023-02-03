@@ -442,6 +442,47 @@ impl DISPLAY_DEVICE {
 	pub_fn_string_arr_get_set!(DeviceKey, set_DeviceKey);
 }
 
+#[repr(C, packed(2))]
+pub struct DLGTEMPLATEEX {
+	pub dlgVer: u16,
+	pub signature: u16,
+	pub helpID: u32,
+	pub exStyle: co::WS_EX,
+	pub style: co::WS,
+	pub cDlgItems: u16,
+	pub x: i32,
+	pub y: i32,
+	pub cx: i32,
+	pub cy: i32,
+	pub menu: Vec<u16>,
+	pub windowClass: Vec<u16>,
+	pub title: Vec<u16>,
+	pub pointsize: Option(u16),
+	pub weight: Option(u32),
+	pub italic: Option(BOOL),
+	pub charset: Option(co::CHARSET),
+	pub typeface: Option(Vec<u16>),
+}
+
+impl_default!(DLGTEMPLATEEX);
+
+#[repr(C, packed(2))]
+pub struct DLGITEMTEMPLATEEX {
+	pub helpID: u32,
+	pub exStyle: co::WS_EX,
+	pub style: co::WS,
+	pub x: i32,
+	pub y: i32,
+	pub cx: i32,
+	pub cy: i32,
+	pub id: u32,
+	pub windowClass: Vec<u16>,
+	pub title: Vec<u16>,
+	pub extraCount: i16,
+}
+
+impl_default!(DLGITEMTEMPLATEEX);
+
 /// [`DRAWITEMSTRUCT`](https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-drawitemstruct)
 /// struct.
 #[repr(C)]

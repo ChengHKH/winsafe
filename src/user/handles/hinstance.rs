@@ -6,7 +6,7 @@ use crate::prelude::Handle;
 use crate::user;
 use crate::user::decl::{
 	ATOM, DLGPROC, HACCEL, HCURSOR, HICON, HMENU, HWND, IdIdcStr, IdIdiStr,
-	WNDCLASSEX,
+	WNDCLASSEX, DLGTEMPLATEEX,
 };
 use crate::user::guard::{DestroyCursorGuard, DestroyIconGuard};
 
@@ -45,6 +45,26 @@ pub trait user_Hinstance: Handle {
 			},
 			|ptr| HWND(ptr),
 		)
+	}
+
+	unsafe fn DialogBoxIndirectParam(&self,
+		template: *const DLGTEMPLATEEX,
+		hwnd_parent: Option<&HWND>,
+		dialog_proc: DLGPROC,
+		init_param: Option<isize>) -> SysResult<isize>
+	{
+		match unsafe {
+			user::ffi::DialogBoxIndirectParamW(
+				self.as_ptr(),
+				template as _,
+				hwnd_parent.map_or(std::ptr::null_mut(), |h| h.0),
+				dialog_proc as _,
+				init_param.unwrap_or_default(),
+			)
+		} {
+			-1 => Err(GetLastError()),
+			res => Ok(res),
+		}
 	}
 
 	/// [`DialogBoxParam`](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-dialogboxparamw)

@@ -985,6 +985,26 @@ const_ordinary! { DLGID: u16;
 	CONTINUE 11
 }
 
+const_ws! { DS: u16;
+	=>
+	=>
+	3DLOOK 0x0004
+	ABSALIGN 0x01
+	CENTER 0x0800
+	CENTERMOUSE 0x1000
+	CONTEXTHELP 0x2000
+	CONTROL 0x0400
+	FIXEDSYS 0x0008
+	LOCALEDIT 0x20
+	MODALFRAME 0x80
+	NOFAILCREATE 0x0010
+	NOIDLEMSG 0x100
+	SETFONT 0x40
+	SETFOREGROUND 0x200
+	SHELLFONT self::SETFONT.0 | self::FIXEDSYS.0
+	SYSMODAL 0x02
+}
+
 const_bitflag! { DT: u32;
 	/// [`HDC::DrawText`](crate::prelude::user_Hdc::DrawText) `format` (`u32`).
 	=>

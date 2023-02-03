@@ -48,6 +48,7 @@ extern_sys! { "user32";
 	DestroyIcon(HANDLE) -> BOOL
 	DestroyMenu(HANDLE) -> BOOL
 	DestroyWindow(HANDLE) -> BOOL
+	DialogBoxIndirectParamW(HANDLE, PVOID, HANDLE, PFUNC, isize) -> isize
 	DialogBoxParamW(HANDLE, PCSTR, HANDLE, PFUNC, isize) -> isize
 	DispatchMessageW(PCVOID) -> isize
 	DrawMenuBar(HANDLE) -> BOOL
